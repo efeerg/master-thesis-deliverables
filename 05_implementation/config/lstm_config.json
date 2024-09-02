@@ -1,0 +1,12 @@
+{
+    "input_folder": "../01_input/input/metrics/",
+    "output_folder": "../06_results/json/",
+    "forecasting_type": "multi-step-ahead-direct",
+    "n": 9,
+    "sequence_length": 3,
+    "model": "LSTM",
+    "epochs": 100,
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "hidden_units": 64
+}

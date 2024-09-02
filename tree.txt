@@ -1,0 +1,89 @@
+.
+├── 00_testing
+│   ├── config
+│   │   └── complete.json
+│   ├── data_processing
+│   │   ├── __pycache__
+│   │   │   └── data_processing.cpython-311.pyc
+│   │   └── data_processing.py
+│   ├── data_sampling
+│   │   ├── __pycache__
+│   │   │   └── data_sampling.cpython-311.pyc
+│   │   └── data_sampling.py
+│   ├── main.py
+│   └── maintenance_score
+│       ├── __pycache__
+│       │   └── maintenance_score_pipeline.cpython-311.pyc
+│       └── maintenance_score_pipeline.py
+├── 01_input
+│   ├── input
+│   │   ├── metrics
+│   │   │   ├── avg_issue_close_time_per_month_count.parquet
+│   │   │   ├── avg_issue_close_time_per_month_duration.parquet
+│   │   │   ├── avg_issue_response_time_per_month.parquet
+│   │   │   ├── avg_pull_request_close_time_per_month.parquet
+│   │   │   ├── avg_pull_request_merge_time_per_month.parquet
+│   │   │   ├── closed_issues_per_month_closed_issues.parquet
+│   │   │   ├── closed_pull_requests_per_month_closed_pull_requests.parquet
+│   │   │   ├── closed_pull_requests_per_month_open_pull_requests.parquet
+│   │   │   ├── commit_per_month.parquet
+│   │   │   ├── issues.parquet
+│   │   │   ├── maintenance_score_experiment.parquet
+│   │   │   ├── new_issue_author_count_per_month.parquet
+│   │   │   ├── new_pull_request_author_count_per_month.parquet
+│   │   │   └── project_information.parquet
+│   │   ├── procesed_relational_dataset.parquet
+│   │   ├── procesed_relational_dataset_500.parquet
+│   │   └── procesed_relational_dataset_with_maintained_score.parquet
+│   └── json
+│       ├── pypi_metrics_file.json
+│       └── pypi_metrics_file_36k_updated.json
+├── 02_methodology
+│   └── fetch_articles.ipynb
+├── 03_lit_review
+│   ├── scholarly_articles_openssf_final.xlsx
+│   └── scholarly_articles_prediction_final.xlsx
+├── 04_experiment
+│   ├── data_sampling.ipynb
+│   ├── maintenance_score
+│   │   ├── export_scores.py
+│   │   ├── maintenance_score_pipeline.ipynb
+│   │   └── repositoty_rest_request.ipynb
+│   └── pipeline
+│       ├── 1_data_exploration.ipynb
+│       ├── 2_data_processing.ipynb
+│       ├── 3_maintenance_score_implementation.ipynb
+│       └── pipeline.ipynb
+├── 05_implementation
+│   ├── README.md
+│   ├── __pycache__
+│   │   └── model_trainer.cpython-311.pyc
+│   ├── config
+│   │   ├── lstm_config.json
+│   │   └── rf_config.json
+│   ├── main.py
+│   ├── model_trainer.py
+│   ├── models
+│   │   ├── __pycache__
+│   │   │   ├── lstm_model.cpython-311.pyc
+│   │   │   └── rf_model.cpython-311.pyc
+│   │   ├── lstm_model.py
+│   │   └── rf_model.py
+│   └── utils
+│       ├── __pycache__
+│       │   └── data_loader.cpython-311.pyc
+│       └── data_loader.py
+├── 06_results
+│   ├── README.md
+│   ├── json
+│   │   └── RandomForest_multi-step-ahead-direct_seq3_n9_ne100_md10_rs42.json
+│   ├── json_to_plot.ipynb
+│   └── plot
+├── 07_discussion
+├── 08_contributions
+├── 09_evaluation
+├── 10_conclusion
+├── README.md
+└── tree.txt
+
+32 directories, 55 files
