@@ -1,0 +1,34 @@
+{
+    "maintained_pipeline": {
+        "json_file": "../01_input/json/pypi_metrics_file_36k_updated.json"
+    },
+    "ds_pipeline": {
+        "parquet_file": "../01_input/input/procesed_relational_dataset_with_maintained_score.parquet",
+        "sample_type": "unbalanced",
+        "sample_percentage": 5
+    },
+    "test_pipeline": {
+        "input_folder": "../01_input/input/metrics/",
+        "output_folder": "../06_results/json/",
+        "forecasting_type": "multi-step-ahead-iterative",
+        "n": 9,
+        "sequence_length": 3,
+        "model": "LSTM",
+        "epochs": 100,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "hidden_units": 64
+    },
+    
+    "begin_time": {
+        "year": 2022,
+        "month": 11
+    },
+    "end_time": {
+        "year": 2023,
+        "month": 12
+    },
+    "execute_maintained": false,
+    "execute_ds" : true,
+    "execute_test": true
+}
