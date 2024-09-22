@@ -11,8 +11,12 @@ class RFModel:
         Train the Random Forest model. Reshape data to fit scikit-learn's requirements.
         """
         print("\nStarting Random Forest model training...")
+        print(f"Original X_train shape: {X_train.shape}")
+        
         # Reshape X_train from (num_samples, sequence_length, num_features) to (num_samples, sequence_length * num_features)
         X_train_reshaped = X_train.reshape(X_train.shape[0], -1)
+        
+        print(f"Reshaped X_train shape: {X_train_reshaped.shape}")
         self.model.fit(X_train_reshaped, y_train)
         print("\nRandom Forest model training complete.")
 
@@ -34,8 +38,12 @@ class RFModel:
         Make predictions using the trained Random Forest model.
         """
         print("\nMaking predictions with Random Forest model...")
+        print(f"Original X shape: {X.shape}")
+        
         # Reshape X from (num_samples, sequence_length, num_features) to (num_samples, sequence_length * num_features)
         X_reshaped = X.reshape(X.shape[0], -1)
+        
+        print(f"Reshaped X shape: {X_reshaped.shape}")
         predictions = self.model.predict(X_reshaped)
         rounded_predictions = np.round(predictions)  # Round predictions to the nearest integer
         return rounded_predictions

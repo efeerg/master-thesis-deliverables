@@ -22,8 +22,8 @@ def main(config_path):
     # Load the configuration from the JSON file
     config = load_config(config_path)
     
-    print("\nConfiguration Loaded:")
-    print("="*50)
+    print("Configuration Loaded:")
+    print("-"*50)
     for key, value in config.items():
         print(f"{key}: {value}")
 
@@ -38,27 +38,31 @@ def main(config_path):
         print(f"Begin time: {begin_time}")
         print(f"End time: {end_time}")
         print("JSON file path: ", json_file_path)
-        print("="*50)
+        print("-"*50)
         
         # Dataframe with the maintenance score
-        df = maintenance_score_calculation(json_file_path, begin_time, end_time)
-        print("Dataframe shape: {}".format(df.shape))
+        df = maintenance_score_calculation(json_file_path, begin_time, end_time, config['maintained_pipeline']['selected_month'])
+        df.to_parquet(config['ds_pipeline']['parquet_file'])
+        print("Dataframe shape (After Maintenance score calculation): {}".format(df.shape))
+        print(df['maintenance_score'].value_counts())
     
     if config['execute_ds']:
         print("="*50)
         print("Sampling Data")
         print("Parameters for data sampling:")
         print("Sample type: ", config['ds_pipeline']['sample_type'])
-        print("Sample percentage: {}".format(config['ds_pipeline']['sample_percentage'] if config['ds_pipeline']['sample_type'] == "unbalanced" else "None"))
+        print("Sample percentage: {}".format(config['ds_pipeline']['sample_perc'] if config['ds_pipeline']['sample_type'] == "unbalanced" else "None"))
         print("Sample size: {}".format(config['ds_pipeline']['sample_size'] if config['ds_pipeline']['sample_type'] == "balanced" else "None"))
         print("Sample dictionary: {}".format(config['ds_pipeline']['sample_dict'] if config['ds_pipeline']['sample_type'] == "hybrid" else "None"))
-        print("="*50)
+        print("-"*50)
 
         prep_df = pd.read_parquet(config['ds_pipeline']['parquet_file'])
+        print("Dataframe shape (Before sampling): {}".format(prep_df.shape))
+        print(prep_df['maintenance_score'].value_counts())
     
         if config['ds_pipeline']['sample_type'] == 'unbalanced':
             df = data_sampling(prep_df, config['ds_pipeline']['sample_type'], 
-                        sample_perc=config['ds_pipeline']['sample_percentage'],
+                        sample_perc=config['ds_pipeline']['sample_perc'],
                         sample_size=None,
                         sample_dict=None)
         elif config['ds_pipeline']['sample_type'] == 'balanced':
@@ -72,18 +76,19 @@ def main(config_path):
                         sample_size=config['ds_pipeline']['sample_size'],
                         sample_dict=config['ds_pipeline']['sample_dict'])
     
-        print("Dataframe shape: {}".format(df.shape))
-        df.to_parquet(config['ds_pipeline']['parquet_file'])
+        print("Dataframe shape (After sampling): {}".format(df.shape))
+        print(df['maintenance_score'].value_counts())
+        # df.to_parquet(config['ds_pipeline']['parquet_file'])
 
-        print("="*50)
+        print("-"*50)
         print("Data Processing")
-        print("="*50)
-        data_processing(config['ds_pipeline']['parquet_file'], begin_time, end_time)
+        print("-"*50)
+        data_processing(df, begin_time, end_time)
     
     if config['execute_test']:
         print("="*50)
         print("Model Trainer")
-        print("="*50)
+        print("-"*50)
         config['test_pipeline'].update({'sample_type': config['ds_pipeline']['sample_type']})
         print(f"Updated configuration for the model trainer:{config['test_pipeline']}")
         command = ['python', '../05_implementation/main.py', '--config', json.dumps(config['test_pipeline'])]

@@ -1,0 +1,36 @@
+{
+    "maintained_pipeline": {
+        "json_file": "../01_input/json/pypi_metrics_file_36k_updated.json",
+        "selected_month": "09-2023",
+        "output_file": "../01_input/input/metrics/maintenance_score_experiment.parquet"
+    },
+    "ds_pipeline": {
+        "parquet_file": "../01_input/input/procesed_relational_dataset_with_maintained_score.parquet",
+        "sample_type": "unbalanced",
+        "sample_perc": 100
+    },
+    "test_pipeline": {
+        "input_folder": "../01_input/input/metrics/",
+        "output_folder": "../06_results/json/unbalanced_100/",
+        "forecasting_type": "single-step-ahead",
+        "forecasting_type1": "multi-step-ahead-iterative",
+        "forecasting_type0": "multi-step-ahead-direct",
+        "n": 9,
+        "sequence_length": 3,
+        "model": "RandomForest",
+        "n_estimators": 100,
+        "max_depth": 10,
+        "random_state": 42
+    },
+    "begin_time": {
+        "year": 2022,
+        "month": 11
+    },
+    "end_time": {
+        "year": 2023,
+        "month": 12
+    },
+    "execute_maintained": false,
+    "execute_ds" : false,
+    "execute_test": true
+}

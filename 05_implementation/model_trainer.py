@@ -38,11 +38,16 @@ class ModelTrainer:
 
     # Function to calculate classification metrics
     def calculate_classification_metrics(self, y_true, y_pred):
-        accuracy = accuracy_score(y_true, y_pred)
-        precision = precision_score(y_true, y_pred, average='weighted')
-        recall = recall_score(y_true, y_pred, average='weighted')
-        f1 = f1_score(y_true, y_pred, average='weighted')
-        confusion = confusion_matrix(y_true, y_pred)
+        # Clip predictions and true values to be between 0 and 10
+        y_pred_clipped = np.round(y_pred)
+
+        # Calculate metrics
+        accuracy = accuracy_score(y_true, y_pred_clipped)
+        precision = precision_score(y_true, y_pred_clipped, average='weighted')
+        recall = recall_score(y_true, y_pred_clipped, average='weighted')
+        f1 = f1_score(y_true, y_pred_clipped, average='weighted')
+        labels = np.arange(0, 11)  # This generates an array of labels [0, 1, 2, ..., 10]
+        confusion = confusion_matrix(y_true, y_pred_clipped, labels=labels)
 
         return accuracy, precision, recall, f1, confusion
 
@@ -63,75 +68,11 @@ class ModelTrainer:
         print("\nTraining complete.")
         print("="*50)
 
-    def test_multi_step_ahead_direct(self, X_test, y_test):
-        print("="*50)
-        print("Starting testing process with Multi-step-ahead Direct Forecasting...")
-        print("="*50)
-        
-        predictions = []
-        mse_list = []
-        mae_list = []
-        rmse_list = []
-        r2_list = []
-        accuracy_list = []
-        precision_list = []
-        recall_list = []
-        f1_list = []
-        confusion_matrices = []
-
-        for month in range(y_test.shape[1]):
-            X_batch = X_test[:, month:month+self.sequence_length, :]
-            y_batch = y_test[:, month]
-            
-            print(f"\nTesting for month {month + 1} using X[:, {month}:{month + self.sequence_length}, :]")
-            print(f"X_batch shape: {X_batch.shape}, y_batch shape: {y_batch.shape}")
-            
-            y_pred = self.model.predict(X_batch)
-            y_pred = np.clip(np.round(y_pred), 0, 10).astype(int)  # Convert predictions to integer class labels
-            predictions.append(y_pred)
-            
-            # Calculate regression metrics
-            mse, mae, rmse, r2 = self.calculate_regression_metrics(y_batch, y_pred)
-            mse_list.append(mse)
-            mae_list.append(mae)
-            rmse_list.append(rmse)
-            r2_list.append(r2)
-            
-            # Calculate classification metrics
-            accuracy, precision, recall, f1, confusion = self.calculate_classification_metrics(y_batch, y_pred)
-            accuracy_list.append(accuracy)
-            precision_list.append(precision)
-            recall_list.append(recall)
-            f1_list.append(f1)
-            confusion_matrices.append(confusion)
-            
-            print(f"Predictions for month {month + 1}: {y_pred.flatten()}")
-            print(f"Month {month + 1} - MSE: {mse}, MAE: {mae}, RMSE: {rmse}, R²: {r2}")
-            print(f"Month {month + 1} - Accuracy: {accuracy}, Precision: {precision}, Recall: {recall}, F1-Score: {f1}")
-        
-        print("\nTesting complete.")
-        print("="*50)
-
-        # Return metrics for all months
-        return {
-            "predictions": np.array(predictions).reshape(y_test.shape),
-            "mse": mse_list,
-            "mae": mae_list,
-            "rmse": rmse_list,
-            "r2": r2_list,
-            "accuracy": accuracy_list,
-            "precision": precision_list,
-            "recall": recall_list,
-            "f1": f1_list,
-            "confusion_matrices": confusion_matrices
-        }
-
     def test_single_step_ahead(self, X_test, y_test):
         print("="*50)
         print("Starting testing process with Single-step-ahead Forecasting...")
         print("="*50)
 
-        predictions = []
         mse_list = []
         mae_list = []
         rmse_list = []
@@ -150,8 +91,6 @@ class ModelTrainer:
         print(f"X_batch shape: {X_batch.shape}, y_batch shape: {y_batch.shape}")
 
         y_pred = self.model.predict(X_batch)
-        y_pred = np.clip(np.round(y_pred), 0, 10).astype(int)
-        predictions.append(y_pred)
 
         # Calculate regression metrics
         mse, mae, rmse, r2 = self.calculate_regression_metrics(y_batch, y_pred)
@@ -168,7 +107,6 @@ class ModelTrainer:
         f1_list.append(f1)
         confusion_matrices.append(confusion)
 
-        print(f"Predictions: {y_pred.flatten()}")
         print(f"MSE: {mse}, MAE: {mae}, RMSE: {rmse}, R²: {r2}")
         print(f"Accuracy: {accuracy}, Precision: {precision}, Recall: {recall}, F1-Score: {f1}")
 
@@ -177,7 +115,6 @@ class ModelTrainer:
 
         # Return metrics
         return {
-            "predictions": np.array(predictions).reshape(-1, 1),
             "mse": mse_list,
             "mae": mae_list,
             "rmse": rmse_list,
@@ -194,7 +131,6 @@ class ModelTrainer:
         print("Starting testing process with Multi-step-ahead Iterative Forecasting...")
         print("="*50)
         
-        predictions = []
         mse_list = []
         mae_list = []
         rmse_list = []
@@ -213,7 +149,6 @@ class ModelTrainer:
             
             # Predict the next month
             y_pred = self.model.predict(input_sequence)
-            y_pred = np.clip(np.round(y_pred), 0, 10).astype(int)
             
             # Reshape y_pred to ensure it matches the expected dimensions for input_sequence
             if len(y_pred.shape) == 1:
@@ -222,8 +157,6 @@ class ModelTrainer:
             # Expand y_pred to match the number of features in input_sequence (for RandomForest, replicate across features)
             y_pred_expanded = np.repeat(y_pred, self.num_features, axis=1)
             y_pred_expanded = y_pred_expanded[:, np.newaxis, :]  # Add a time dimension
-            
-            predictions.append(y_pred)
 
             # Update the input sequence: remove the oldest month and add the predicted month
             input_sequence = np.concatenate([input_sequence[:, 1:, :], y_pred_expanded], axis=1)
@@ -237,7 +170,7 @@ class ModelTrainer:
             mae_list.append(mae)
             rmse_list.append(rmse)
             r2_list.append(r2)
-            
+
             # Calculate classification metrics
             accuracy, precision, recall, f1, confusion = self.calculate_classification_metrics(y_batch, y_pred)
             accuracy_list.append(accuracy)
@@ -255,7 +188,73 @@ class ModelTrainer:
 
         # Return metrics for all months
         return {
-            "predictions": np.array(predictions).reshape(y_test.shape),
+            "mse": mse_list,
+            "mae": mae_list,
+            "rmse": rmse_list,
+            "r2": r2_list,
+            "accuracy": accuracy_list,
+            "precision": precision_list,
+            "recall": recall_list,
+            "f1": f1_list,
+            "confusion_matrices": confusion_matrices
+        }
+
+    def test_multi_step_ahead_direct(self, X_test, y_test):
+        print("="*50)
+        print("Starting testing process with Multi-step-ahead Direct Forecasting...")
+        print("="*50)
+    
+        mse_list = []
+        mae_list = []
+        rmse_list = []
+        r2_list = []
+        accuracy_list = []
+        precision_list = []
+        recall_list = []
+        f1_list = []
+        confusion_matrices = []
+    
+        # Set the expected sequence length (should match training sequence length)
+        expected_sequence_length = self.sequence_length
+    
+        for month in range(y_test.shape[1]):
+            # Extract batch for current month
+            X_batch = X_test[:, month:month+self.sequence_length, :]
+            y_batch = y_test[:, month]
+    
+            # If the sequence is shorter than expected, pad it
+            if X_batch.shape[1] < expected_sequence_length:
+                padding_length = expected_sequence_length - X_batch.shape[1]
+                X_batch = np.pad(X_batch, ((0, 0), (0, padding_length), (0, 0)), mode='constant')
+    
+            print(f"\nTesting for month {month + 1} using X[:, {month}:{month + self.sequence_length}, :]")
+            print(f"X_batch shape after padding (if needed): {X_batch.shape}, y_batch shape: {y_batch.shape}")
+    
+            # Make predictions using the model
+            y_pred = self.model.predict(X_batch)
+    
+            # Calculate regression metrics
+            mse, mae, rmse, r2 = self.calculate_regression_metrics(y_batch, y_pred)
+            mse_list.append(mse)
+            mae_list.append(mae)
+            rmse_list.append(rmse)
+            r2_list.append(r2)
+    
+            # Calculate classification metrics
+            accuracy, precision, recall, f1, confusion = self.calculate_classification_metrics(y_batch, y_pred)
+            accuracy_list.append(accuracy)
+            precision_list.append(precision)
+            recall_list.append(recall)
+            f1_list.append(f1)
+            confusion_matrices.append(confusion)
+    
+            print(f"Month {month + 1} - MSE: {mse}, MAE: {mae}, RMSE: {rmse}, R²: {r2}")
+            print(f"Month {month + 1} - Accuracy: {accuracy}, Precision: {precision}, Recall: {recall}, F1-Score: {f1}")
+    
+        print("\nTesting complete.")
+        print("="*50)
+    
+        return {
             "mse": mse_list,
             "mae": mae_list,
             "rmse": rmse_list,

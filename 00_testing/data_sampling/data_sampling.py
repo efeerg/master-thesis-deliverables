@@ -13,26 +13,16 @@ def sample_percentage(df, perc):
 def sample_balanced(df, size):
     # Take Y samples for each unique value in the maintenance_score column
     sampled_df = df.groupby('maintenance_score').apply(lambda x: x.sample(min(len(x), size), random_state=42)).reset_index(drop=True)
-    sampled_df
+    return sampled_df
 
 
-def sample_hybrid(df, perc_dict = {
-        0: 0.35,   # 35% for maintenance_score = 0
-        1: 0.05,   # 5% for maintenance_score = 1
-        2: 0.05,   # 5% for maintenance_score = 2
-        3: 0.05,   # 5% for maintenance_score = 3
-        4: 0.05,   # 5% for maintenance_score = 4
-        5: 0.05,   # 5% for maintenance_score = 5
-        6: 0.05,   # 5% for maintenance_score = 6
-        7: 0.05,   # 5% for maintenance_score = 7
-        8: 0.05,   # 5% for maintenance_score = 8
-        9: 0.05,   # 5% for maintenance_score = 9
-        10: 0.20   # 20% for maintenance_score = 10
-    }, size=20):
-
-    # Calculate the number of samples to take for each maintenance_score value
+def sample_hybrid(df, perc_dict, size=20):
+    """
+    Sample the dataframe based on the percentages provided in perc_dict.
+    """
+    # Convert string keys to integers for operations
     sample_sizes = {
-        key: int(size * perc_dict[key]) for key in perc_dict
+        int(key): int(size * perc_dict[key]) for key in perc_dict
     }
 
     # Sample the DataFrame based on the calculated sample sizes
@@ -47,8 +37,8 @@ def sample_hybrid(df, perc_dict = {
     # Combine the sampled DataFrames
     final_sampled_df = pd.concat(sampled_dfs).reset_index(drop=True)
 
-    # Display the final sampled DataFrame
     return final_sampled_df
+
 
 
 def data_sampling(df, sample_type, sample_perc, sample_size, sample_dict):
@@ -57,8 +47,8 @@ def data_sampling(df, sample_type, sample_perc, sample_size, sample_dict):
     elif sample_type == 'balanced':
         df = sample_balanced(df, sample_size)
     else:
-        df = sample_hybrid(df, sample_perc, sample_dict)
-    return df
+        df = sample_hybrid(df, sample_dict, sample_size)
+    return df.reset_index(drop=True)
 
 
 

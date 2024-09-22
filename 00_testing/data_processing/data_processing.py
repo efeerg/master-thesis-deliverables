@@ -7,7 +7,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import json
-
+import math
 
 # ## Supporting Functions
 def implement_months(repository):
@@ -55,8 +55,8 @@ def implement_months(repository):
     return repository
 
 def array_to_duration(repository, column):
-    repository["duration"] = repository[column].apply(lambda x: x[0] * 30 + x[1] + x[2] / (24 * 3600) + x[3] / (24 * 3600 * 10 ** 9) if x is not None else np.inf)
-    repository["duration"].replace(np.inf, repository["duration"].median(), inplace=True)
+    repository["duration"] = repository[column].apply(lambda x: x[0] * 30 + x[1] + x[2] / (24 * 3600) + x[3] / (24 * 3600 * 10 ** 9) if isinstance(x, (list, tuple)) and len(x) >= 4 else np.inf)
+    repository["duration"] = repository["duration"].replace(np.inf, repository["duration"].median())
     repository.drop(columns=[column], inplace=True)
     return repository
 
@@ -102,12 +102,14 @@ def extract_comments_and_issues(json_data):
     grouped_counts = implement_months(grouped_counts)
     return grouped_counts
 
+def calculate_three_month_score(df):
+    score = df.sum(axis=1)
+    return score
 
-def data_processing(file_path, begin_time, end_time):
-    # Load the Parquet file into a pandas dataframe
-    df = pd.read_parquet(file_path)
-    print(df.columns)
+def check_all_true(df):
+    return df.apply(lambda row: row[df.columns[0]] and row[df.columns[1]] and row[df.columns[2]], axis=1)
 
+def data_processing(df, begin_time, end_time):
     # Define the start and end dates (we are getting three months before of the starting date, because each month should consider the activities based on the last 90 days)
     start_year, start_month = begin_time[1], begin_time[0]
     end_year, end_month = end_time[1], end_time[0]
@@ -407,6 +409,25 @@ def data_processing(file_path, begin_time, end_time):
     # Save to Parquet
     issues_structured.to_parquet('../01_input/input/metrics/issues.parquet')
 
+    # ## Maintenance Score
+    # Generate the list of months between start and end dates
+    months = pd.date_range(start=f"{start_month}-{start_year}", end=f"{end_month}-{end_year}", freq='MS').strftime("%m-%Y").tolist()[2:]
 
+    pi_activity_score = pd.DataFrame(index=project_information_structured.index, columns=months)
+    commit_activity_score = pd.DataFrame(index=commit_per_month_structured.index, columns=months)
+    issue_activity_score = pd.DataFrame(index=issues_structured.index, columns=months)
+
+    for i in range(len(pi_activity_score.columns)):
+        pi_activity_score.iloc[:, i] = check_all_true(project_information_structured.iloc[:, i:i+3])
+        commit_activity_score.iloc[:, i] = calculate_three_month_score(commit_per_month_structured.iloc[:, i:i+3])
+        issue_activity_score.iloc[:, i] = calculate_three_month_score(issues_structured.iloc[:, i:i+3])
+
+    maintained_score = commit_activity_score + issue_activity_score
+    t = 4 * 90 / 30
+    maintained_score = maintained_score.map(lambda x: min(math.floor(10 * x  / t), 10)) 
+    # maintained_score = maintained_score.map(lambda x: min(x, 10)) 
+    maintained_score = maintained_score.where(pi_activity_score, 0.0)
+    maintained_score = maintained_score.astype(int)
+    maintained_score.to_parquet('../01_input/input/metrics/maintenance_score_experiment.parquet')
 
 

@@ -110,7 +110,6 @@ def calculate_three_month_score(df):
 def check_all_true(df):
     return df.apply(lambda row: row[df.columns[0]] and row[df.columns[1]] and row[df.columns[2]], axis=1)
 
-
 def fill_dataframe(df1, start_year, start_month, end_year, end_month):
     # Generate the months for the second table
     months = pd.date_range(start=f"{start_month}-{start_year}", end=f"{end_month}-{end_year}", freq='MS').strftime("%m-%Y").tolist()
@@ -151,7 +150,7 @@ def fill_dataframe(df1, start_year, start_month, end_year, end_month):
 
     return df2
 
-def maintenance_score_calculation(json_file_path, begin_time, end_time):
+def maintenance_score_calculation(json_file_path, begin_time, end_time, selected_month):
     df = pd.read_json(json_file_path)
     data_df = df.transpose()
 
@@ -166,9 +165,9 @@ def maintenance_score_calculation(json_file_path, begin_time, end_time):
     data_df = pd.concat([data_df, df], axis=1)
 
     # Assuming your DataFrame is named data_df
-    data_df = data_df.applymap(lambda x: np.nan if isinstance(x, list) and len(x) == 0 else x)
+    data_df = data_df.map(lambda x: np.nan if isinstance(x, list) and len(x) == 0 else x)
     df = data_df
-    print("DataFrame shape = {}".format(df.shape))
+    print("DataFrame shape (JSON extraction) = {}".format(df.shape))
 
     # Define the start and end dates (we are getting three months before of the starting date, because each month should consider the activities based on the last 90 days)
     start_year, start_month = begin_time[1], begin_time[0]
@@ -241,9 +240,9 @@ def maintenance_score_calculation(json_file_path, begin_time, end_time):
     t = 4 * 90 / 30
     maintained_score = maintained_score.map(lambda x: min(math.floor(10 * x  / t), 10)) 
     # maintained_score = maintained_score.map(lambda x: min(x, 10)) 
-    maintained_score = maintained_score.where(pi_activity_score, 0)
+    maintained_score = maintained_score.where(pi_activity_score, 0.0)
     maintained_score = maintained_score.astype(int)
-    maintained_score.to_parquet("../01_input/input/metrics/maintenance_score_experiment.parquet")
-
-    df['maintenance_score'] = maintained_score['09-2023']
+    # df = df.join(maintained_score[[selected_month]], how='left')
+    # df.rename(columns={selected_month: 'maintenance_score'}, inplace=True)
+    df['maintenance_score'] = maintained_score[selected_month]
     return df

@@ -1,22 +1,26 @@
 {
     "maintained_pipeline": {
-        "json_file": "../01_input/json/pypi_metrics_file_36k_updated.json"
+        "json_file": "../01_input/json/pypi_metrics_file_36k_updated.json",
+        "selected_month": "09-2023",
+        "output_file": "../01_input/input/metrics/maintenance_score_experiment.parquet"
     },
     "ds_pipeline": {
         "parquet_file": "../01_input/input/procesed_relational_dataset_with_maintained_score.parquet",
-        "sample_type": "unbalanced",
-        "sample_percentage": 5
+        "sample_type": "balanced",
+        "sample_size": 100
     },
     "test_pipeline": {
         "input_folder": "../01_input/input/metrics/",
-        "output_folder": "../06_results/json/",
-        "forecasting_type": "multi-step-ahead-iterative",
+        "output_folder": "../06_results/json/unbalanced_100/",
+        "forecasting_type": "single-step-ahead",
+        "forecasting_type1": "multi-step-ahead-iterative",
+        "forecasting_type0": "multi-step-ahead-direct",
         "n": 9,
         "sequence_length": 3,
         "model": "LSTM",
         "epochs": 100,
         "batch_size": 32,
-        "learning_rate": 0.001,
+        "learning_rate": 0.0001,
         "hidden_units": 64
     },
     
@@ -29,6 +33,6 @@
         "month": 12
     },
     "execute_maintained": false,
-    "execute_ds" : true,
+    "execute_ds" : false,
     "execute_test": true
 }
