@@ -6,8 +6,6 @@ from utils.data_loader import DataLoader
 from model_trainer import ModelTrainer
 
 def load_config(config_path):
-    # with open(config_path, 'r') as config_file:
-    #     config = json.load(config_file)
     config = json.loads(config_path)
     return config
 

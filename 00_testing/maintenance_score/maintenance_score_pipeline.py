@@ -239,10 +239,7 @@ def maintenance_score_calculation(json_file_path, begin_time, end_time, selected
     maintained_score = commit_activity_score + issue_activity_score
     t = 4 * 90 / 30
     maintained_score = maintained_score.map(lambda x: min(math.floor(10 * x  / t), 10)) 
-    # maintained_score = maintained_score.map(lambda x: min(x, 10)) 
     maintained_score = maintained_score.where(pi_activity_score, 0.0)
     maintained_score = maintained_score.astype(int)
-    # df = df.join(maintained_score[[selected_month]], how='left')
-    # df.rename(columns={selected_month: 'maintenance_score'}, inplace=True)
     df['maintenance_score'] = maintained_score[selected_month]
     return df

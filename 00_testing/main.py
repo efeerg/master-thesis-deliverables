@@ -31,6 +31,8 @@ def main(config_path):
     begin_time = (config['begin_time']['year'], config['begin_time']['month'])
     end_time = (config['end_time']['year'], config['end_time']['month'])
     json_file_path = config['maintained_pipeline']['json_file']
+
+    # MAINTENANCE SCORE PIPELINE
     if config['execute_maintained']:
         print("="*50)
         print("Maintenance Score Calculation")
@@ -46,6 +48,7 @@ def main(config_path):
         print("Dataframe shape (After Maintenance score calculation): {}".format(df.shape))
         print(df['maintenance_score'].value_counts())
     
+    # DATA PREPARATION PIPELINE
     if config['execute_ds']:
         print("="*50)
         print("Sampling Data")
@@ -60,6 +63,7 @@ def main(config_path):
         print("Dataframe shape (Before sampling): {}".format(prep_df.shape))
         print(prep_df['maintenance_score'].value_counts())
     
+        # Sampling types
         if config['ds_pipeline']['sample_type'] == 'unbalanced':
             df = data_sampling(prep_df, config['ds_pipeline']['sample_type'], 
                         sample_perc=config['ds_pipeline']['sample_perc'],
@@ -85,6 +89,7 @@ def main(config_path):
         print("-"*50)
         data_processing(df, begin_time, end_time)
     
+    # TESTING PIPELINE
     if config['execute_test']:
         print("="*50)
         print("Model Trainer")

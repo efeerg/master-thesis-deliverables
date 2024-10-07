@@ -1,3 +1,10 @@
+##########################################################
+# experiment_scores.py                                   #
+##########################################################
+# This script is used to extract the maintenance scores of 
+# the projects from the OpenSSF Scorecard CLI. It is used
+# to compare the actual results with the impemented method.
+
 import subprocess
 import re
 import requests
@@ -66,14 +73,5 @@ for index, row in new_df.iterrows():
     new_df.at[index, 'explanation'] = explanation
     print("result = ", score)
     print("explanation = ", explanation)
-#     if output_string is None or len(output_string.splitlines()) == 0:
-#         new_df.at[index, 'maintenance_score'] = 0
-#         continue
-#     for line in output_string.splitlines():
-#         if "| Maintained " in line:
-#             new_df.at[index, 'explanation'] = line.split("|")[3].strip()
-#             matches = find_x_over_10(line)
-#             new_df.at[index, 'maintenance_score'] = matches
-#             break
 
 new_df.to_parquet('Data/Processed/maintenance_score.parquet')

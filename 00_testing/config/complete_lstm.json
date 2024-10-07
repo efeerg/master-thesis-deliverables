@@ -11,10 +11,8 @@
     },
     "test_pipeline": {
         "input_folder": "../01_input/input/metrics/",
-        "output_folder": "../06_results/json/unbalanced_100/",
+        "output_folder": "../06_results/json/with/",
         "forecasting_type": "single-step-ahead",
-        "forecasting_type1": "multi-step-ahead-iterative",
-        "forecasting_type0": "multi-step-ahead-direct",
         "n": 9,
         "sequence_length": 3,
         "model": "LSTM",

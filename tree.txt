@@ -1,7 +1,9 @@
 .
 ├── 00_testing
 │   ├── config
-│   │   └── complete.json
+│   │   ├── complete_lstm.json
+│   │   ├── complete_rf.json
+│   │   └── dict_perc.json
 │   ├── data_processing
 │   │   ├── __pycache__
 │   │   │   └── data_processing.cpython-311.pyc
@@ -76,14 +78,365 @@
 ├── 06_results
 │   ├── README.md
 │   ├── json
-│   │   └── RandomForest_multi-step-ahead-direct_seq3_n9_ne100_md10_rs42.json
+│   │   ├── balanced_10
+│   │   │   ├── LSTM_multi-step-ahead-direct_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_multi-step-ahead-iterative_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_single-step-ahead_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-direct_seq3_n9_ne100_md10_rs42_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-iterative_seq3_n9_ne100_md10_rs42_stbalanced.json
+│   │   │   └── RandomForest_single-step-ahead_seq3_n9_ne100_md10_rs42_stbalanced.json
+│   │   ├── balanced_100
+│   │   │   ├── LSTM_multi-step-ahead-direct_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_multi-step-ahead-iterative_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_single-step-ahead_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-direct_seq3_n9_ne100_md10_rs42_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-iterative_seq3_n9_ne100_md10_rs42_stbalanced.json
+│   │   │   └── RandomForest_single-step-ahead_seq3_n9_ne100_md10_rs42_stbalanced.json
+│   │   ├── balanced_150
+│   │   │   ├── LSTM_multi-step-ahead-direct_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_multi-step-ahead-iterative_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_single-step-ahead_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-direct_seq3_n9_ne100_md10_rs42_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-iterative_seq3_n9_ne100_md10_rs42_stbalanced.json
+│   │   │   └── RandomForest_single-step-ahead_seq3_n9_ne100_md10_rs42_stbalanced.json
+│   │   ├── balanced_50
+│   │   │   ├── LSTM_multi-step-ahead-direct_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_multi-step-ahead-iterative_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_single-step-ahead_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-direct_seq3_n9_ne100_md10_rs42_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-iterative_seq3_n9_ne100_md10_rs42_stbalanced.json
+│   │   │   └── RandomForest_single-step-ahead_seq3_n9_ne100_md10_rs42_stbalanced.json
+│   │   ├── hybrid_1
+│   │   │   ├── LSTM_multi-step-ahead-direct_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_multi-step-ahead-iterative_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_single-step-ahead_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-direct_seq3_n9_ne100_md10_rs42_sthybrid.json
+│   │   │   ├── RandomForest_multi-step-ahead-iterative_seq3_n9_ne100_md10_rs42_sthybrid.json
+│   │   │   └── RandomForest_single-step-ahead_seq3_n9_ne100_md10_rs42_sthybrid.json
+│   │   ├── hybrid_4
+│   │   │   ├── LSTM_multi-step-ahead-direct_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_multi-step-ahead-iterative_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_single-step-ahead_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-direct_seq3_n9_ne100_md10_rs42_sthybrid.json
+│   │   │   ├── RandomForest_multi-step-ahead-iterative_seq3_n9_ne100_md10_rs42_sthybrid.json
+│   │   │   └── RandomForest_single-step-ahead_seq3_n9_ne100_md10_rs42_sthybrid.json
+│   │   ├── hybrid_9
+│   │   │   ├── LSTM_multi-step-ahead-direct_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_multi-step-ahead-iterative_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_single-step-ahead_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-direct_seq3_n9_ne100_md10_rs42_sthybrid.json
+│   │   │   ├── RandomForest_multi-step-ahead-iterative_seq3_n9_ne100_md10_rs42_sthybrid.json
+│   │   │   └── RandomForest_single-step-ahead_seq3_n9_ne100_md10_rs42_sthybrid.json
+│   │   ├── split_12_12
+│   │   │   ├── LSTM_multi-step-ahead-direct_seq12_n12_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_multi-step-ahead-iterative_seq12_n12_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_single-step-ahead_seq12_n12_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-direct_seq12_n12_ne100_md10_rs42_stunbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-iterative_seq12_n12_ne100_md10_rs42_stunbalanced.json
+│   │   │   └── RandomForest_single-step-ahead_seq12_n12_ne100_md10_rs42_stunbalanced.json
+│   │   ├── split_18_6
+│   │   │   ├── LSTM_multi-step-ahead-direct_seq6_n18_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_multi-step-ahead-iterative_seq6_n18_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_single-step-ahead_seq6_n18_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-direct_seq6_n18_ne100_md10_rs42_stunbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-iterative_seq6_n18_ne100_md10_rs42_stunbalanced.json
+│   │   │   └── RandomForest_single-step-ahead_seq6_n18_ne100_md10_rs42_stunbalanced.json
+│   │   ├── split_6_6
+│   │   │   ├── LSTM_multi-step-ahead-direct_seq6_n6_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_multi-step-ahead-iterative_seq6_n6_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_single-step-ahead_seq6_n6_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-direct_seq6_n6_ne100_md10_rs42_stunbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-iterative_seq6_n6_ne100_md10_rs42_stunbalanced.json
+│   │   │   └── RandomForest_single-step-ahead_seq6_n6_ne100_md10_rs42_stunbalanced.json
+│   │   ├── split_6_9
+│   │   │   ├── LSTM_multi-step-ahead-direct_seq9_n6_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_multi-step-ahead-iterative_seq9_n6_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_single-step-ahead_seq9_n6_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-direct_seq9_n6_ne100_md10_rs42_stunbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-iterative_seq9_n6_ne100_md10_rs42_stunbalanced.json
+│   │   │   └── RandomForest_single-step-ahead_seq9_n6_ne100_md10_rs42_stunbalanced.json
+│   │   ├── split_9_3
+│   │   │   ├── LSTM_multi-step-ahead-direct_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_multi-step-ahead-iterative_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_single-step-ahead_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-direct_seq3_n9_ne100_md10_rs42_stunbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-iterative_seq3_n9_ne100_md10_rs42_stunbalanced.json
+│   │   │   └── RandomForest_single-step-ahead_seq3_n9_ne100_md10_rs42_stunbalanced.json
+│   │   ├── split_9_6
+│   │   │   ├── LSTM_multi-step-ahead-direct_seq6_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_multi-step-ahead-iterative_seq6_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_single-step-ahead_seq6_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-direct_seq6_n9_ne100_md10_rs42_stunbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-iterative_seq6_n9_ne100_md10_rs42_stunbalanced.json
+│   │   │   └── RandomForest_single-step-ahead_seq6_n9_ne100_md10_rs42_stunbalanced.json
+│   │   ├── tree.txt
+│   │   ├── unbalanced_10
+│   │   │   ├── LSTM_multi-step-ahead-direct_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_multi-step-ahead-iterative_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_single-step-ahead_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-direct_seq3_n9_ne100_md10_rs42_stunbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-iterative_seq3_n9_ne100_md10_rs42_stunbalanced.json
+│   │   │   └── RandomForest_single-step-ahead_seq3_n9_ne100_md10_rs42_stunbalanced.json
+│   │   ├── unbalanced_100
+│   │   │   ├── LSTM_multi-step-ahead-direct_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_multi-step-ahead-iterative_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_single-step-ahead_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-direct_seq3_n9_ne100_md10_rs42_stunbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-iterative_seq3_n9_ne100_md10_rs42_stunbalanced.json
+│   │   │   └── RandomForest_single-step-ahead_seq3_n9_ne100_md10_rs42_stunbalanced.json
+│   │   ├── unbalanced_25
+│   │   │   ├── LSTM_multi-step-ahead-direct_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_multi-step-ahead-iterative_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_single-step-ahead_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-direct_seq3_n9_ne100_md10_rs42_stunbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-iterative_seq3_n9_ne100_md10_rs42_stunbalanced.json
+│   │   │   └── RandomForest_single-step-ahead_seq3_n9_ne100_md10_rs42_stunbalanced.json
+│   │   ├── unbalanced_5
+│   │   │   ├── LSTM_multi-step-ahead-direct_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_multi-step-ahead-iterative_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_single-step-ahead_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-direct_seq3_n9_ne100_md10_rs42_stunbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-iterative_seq3_n9_ne100_md10_rs42_stunbalanced.json
+│   │   │   └── RandomForest_single-step-ahead_seq3_n9_ne100_md10_rs42_stunbalanced.json
+│   │   ├── unbalanced_50
+│   │   │   ├── LSTM_multi-step-ahead-direct_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_multi-step-ahead-iterative_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── LSTM_single-step-ahead_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-direct_seq3_n9_ne100_md10_rs42_stunbalanced.json
+│   │   │   ├── RandomForest_multi-step-ahead-iterative_seq3_n9_ne100_md10_rs42_stunbalanced.json
+│   │   │   └── RandomForest_single-step-ahead_seq3_n9_ne100_md10_rs42_stunbalanced.json
+│   │   ├── with
+│   │   │   ├── LSTM_single-step-ahead_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │   │   └── RandomForest_single-step-ahead_seq3_n9_ne100_md10_rs42_stunbalanced.json
+│   │   └── without
+│   │       ├── LSTM_multi-step-ahead-direct_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │       ├── LSTM_multi-step-ahead-iterative_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │       ├── LSTM_single-step-ahead_seq3_n9_ep100_bs32_lr0.0001_hu64_stbalanced.json
+│   │       ├── RandomForest_multi-step-ahead-direct_seq3_n9_ne100_md10_rs42_stunbalanced.json
+│   │       ├── RandomForest_multi-step-ahead-iterative_seq3_n9_ne100_md10_rs42_stunbalanced.json
+│   │       └── RandomForest_single-step-ahead_seq3_n9_ne100_md10_rs42_stunbalanced.json
 │   ├── json_to_plot.ipynb
-│   └── plot
-├── 07_discussion
-├── 08_contributions
-├── 09_evaluation
-├── 10_conclusion
+│   ├── plot
+│   │   ├── accuracy
+│   │   │   ├── balanced
+│   │   │   │   ├── balanced_comparison.png
+│   │   │   │   ├── balanced_comparison_multi.png
+│   │   │   │   └── balanced_comparison_single.png
+│   │   │   ├── hybrid
+│   │   │   │   ├── hybrid_comparison.png
+│   │   │   │   ├── hybrid_comparison_multi.png
+│   │   │   │   └── hybrid_comparison_single.png
+│   │   │   ├── split
+│   │   │   │   ├── split_comparison.png
+│   │   │   │   └── split_comparison_single.png
+│   │   │   ├── split_len_12
+│   │   │   │   ├── split_len_12_comparison.png
+│   │   │   │   └── split_len_12_comparison_multi.png
+│   │   │   ├── split_len_3
+│   │   │   │   ├── split_len_3_comparison.png
+│   │   │   │   └── split_len_3_comparison_multi.png
+│   │   │   ├── split_len_6
+│   │   │   │   ├── split_len_6_comparison.png
+│   │   │   │   └── split_len_6_comparison_multi.png
+│   │   │   ├── split_len_9
+│   │   │   │   ├── split_len_9_comparison.png
+│   │   │   │   └── split_len_9_comparison_multi.png
+│   │   │   └── unbalanced
+│   │   │       ├── unbalanced_comparison.png
+│   │   │       ├── unbalanced_comparison_multi.png
+│   │   │       └── unbalanced_comparison_single.png
+│   │   ├── confusion_matrix
+│   │   │   ├── balanced_10
+│   │   │   │   └── balanced_10_heatmaps.png
+│   │   │   ├── balanced_100
+│   │   │   │   └── balanced_100_heatmaps.png
+│   │   │   ├── balanced_150
+│   │   │   │   └── balanced_150_heatmaps.png
+│   │   │   ├── balanced_50
+│   │   │   │   └── balanced_50_heatmaps.png
+│   │   │   ├── hybrid_1
+│   │   │   │   └── hybrid_1_heatmaps.png
+│   │   │   ├── hybrid_4
+│   │   │   │   └── hybrid_4_heatmaps.png
+│   │   │   ├── hybrid_9
+│   │   │   │   └── hybrid_9_heatmaps.png
+│   │   │   ├── split_12_12
+│   │   │   │   └── split_12_12_heatmaps.png
+│   │   │   ├── split_18_6
+│   │   │   │   └── split_18_6_heatmaps.png
+│   │   │   ├── split_6_6
+│   │   │   │   └── split_6_6_heatmaps.png
+│   │   │   ├── split_6_9
+│   │   │   │   └── split_6_9_heatmaps.png
+│   │   │   ├── split_9_3
+│   │   │   │   └── split_9_3_heatmaps.png
+│   │   │   ├── split_9_6
+│   │   │   │   └── split_9_6_heatmaps.png
+│   │   │   ├── unbalanced_10
+│   │   │   │   └── unbalanced_10_heatmaps.png
+│   │   │   ├── unbalanced_100
+│   │   │   │   └── unbalanced_100_heatmaps.png
+│   │   │   ├── unbalanced_25
+│   │   │   │   └── unbalanced_25_heatmaps.png
+│   │   │   ├── unbalanced_5
+│   │   │   │   └── unbalanced_5_heatmaps.png
+│   │   │   ├── unbalanced_50
+│   │   │   │   └── unbalanced_50_heatmaps.png
+│   │   │   └── without
+│   │   │       └── without_heatmaps.png
+│   │   ├── distribution
+│   │   │   ├── balanced
+│   │   │   │   └── balanced.png
+│   │   │   ├── hybrid
+│   │   │   │   └── hybrid.png
+│   │   │   ├── split_len_11
+│   │   │   │   └── split_len_11.png
+│   │   │   └── unbalanced
+│   │   │       └── unbalanced.png
+│   │   ├── f1
+│   │   │   ├── balanced
+│   │   │   │   ├── balanced_comparison_multi.png
+│   │   │   │   └── balanced_comparison_single.png
+│   │   │   ├── hybrid
+│   │   │   │   ├── hybrid_comparison_multi.png
+│   │   │   │   └── hybrid_comparison_single.png
+│   │   │   ├── split
+│   │   │   │   └── split_comparison_single.png
+│   │   │   ├── split_len_12
+│   │   │   │   └── split_len_12_comparison_multi.png
+│   │   │   ├── split_len_3
+│   │   │   │   └── split_len_3_comparison_multi.png
+│   │   │   ├── split_len_6
+│   │   │   │   └── split_len_6_comparison_multi.png
+│   │   │   ├── split_len_9
+│   │   │   │   └── split_len_9_comparison_multi.png
+│   │   │   └── unbalanced
+│   │   │       ├── unbalanced_comparison_multi.png
+│   │   │       └── unbalanced_comparison_single.png
+│   │   ├── mae
+│   │   │   ├── balanced
+│   │   │   │   ├── balanced_comparison_multi.png
+│   │   │   │   └── balanced_comparison_single.png
+│   │   │   ├── hybrid
+│   │   │   │   ├── hybrid_comparison_multi.png
+│   │   │   │   └── hybrid_comparison_single.png
+│   │   │   ├── split
+│   │   │   │   └── split_comparison_single.png
+│   │   │   ├── split_len_12
+│   │   │   │   └── split_len_12_comparison_multi.png
+│   │   │   ├── split_len_3
+│   │   │   │   └── split_len_3_comparison_multi.png
+│   │   │   ├── split_len_6
+│   │   │   │   └── split_len_6_comparison_multi.png
+│   │   │   ├── split_len_9
+│   │   │   │   └── split_len_9_comparison_multi.png
+│   │   │   └── unbalanced
+│   │   │       ├── unbalanced_comparison_multi.png
+│   │   │       └── unbalanced_comparison_single.png
+│   │   ├── mse
+│   │   │   ├── balanced
+│   │   │   │   ├── balanced_comparison_multi.png
+│   │   │   │   └── balanced_comparison_single.png
+│   │   │   ├── hybrid
+│   │   │   │   ├── hybrid_comparison_multi.png
+│   │   │   │   └── hybrid_comparison_single.png
+│   │   │   ├── split
+│   │   │   │   └── split_comparison_single.png
+│   │   │   ├── split_len_12
+│   │   │   │   └── split_len_12_comparison_multi.png
+│   │   │   ├── split_len_3
+│   │   │   │   └── split_len_3_comparison_multi.png
+│   │   │   ├── split_len_6
+│   │   │   │   └── split_len_6_comparison_multi.png
+│   │   │   ├── split_len_9
+│   │   │   │   └── split_len_9_comparison_multi.png
+│   │   │   └── unbalanced
+│   │   │       ├── unbalanced_comparison_multi.png
+│   │   │       └── unbalanced_comparison_single.png
+│   │   ├── precision
+│   │   │   ├── balanced
+│   │   │   │   ├── balanced_comparison_multi.png
+│   │   │   │   └── balanced_comparison_single.png
+│   │   │   ├── hybrid
+│   │   │   │   ├── hybrid_comparison_multi.png
+│   │   │   │   └── hybrid_comparison_single.png
+│   │   │   ├── split
+│   │   │   │   └── split_comparison_single.png
+│   │   │   ├── split_len_12
+│   │   │   │   └── split_len_12_comparison_multi.png
+│   │   │   ├── split_len_3
+│   │   │   │   └── split_len_3_comparison_multi.png
+│   │   │   ├── split_len_6
+│   │   │   │   └── split_len_6_comparison_multi.png
+│   │   │   ├── split_len_9
+│   │   │   │   └── split_len_9_comparison_multi.png
+│   │   │   └── unbalanced
+│   │   │       ├── unbalanced_comparison_multi.png
+│   │   │       └── unbalanced_comparison_single.png
+│   │   ├── r2
+│   │   │   ├── balanced
+│   │   │   │   ├── balanced_comparison_multi.png
+│   │   │   │   └── balanced_comparison_single.png
+│   │   │   ├── hybrid
+│   │   │   │   ├── hybrid_comparison_multi.png
+│   │   │   │   └── hybrid_comparison_single.png
+│   │   │   ├── split
+│   │   │   │   └── split_comparison_single.png
+│   │   │   ├── split_len_12
+│   │   │   │   └── split_len_12_comparison_multi.png
+│   │   │   ├── split_len_3
+│   │   │   │   └── split_len_3_comparison_multi.png
+│   │   │   ├── split_len_6
+│   │   │   │   └── split_len_6_comparison_multi.png
+│   │   │   ├── split_len_9
+│   │   │   │   └── split_len_9_comparison_multi.png
+│   │   │   └── unbalanced
+│   │   │       ├── unbalanced_comparison_multi.png
+│   │   │       └── unbalanced_comparison_single.png
+│   │   ├── recall
+│   │   │   ├── balanced
+│   │   │   │   ├── balanced_comparison_multi.png
+│   │   │   │   └── balanced_comparison_single.png
+│   │   │   ├── hybrid
+│   │   │   │   ├── hybrid_comparison_multi.png
+│   │   │   │   └── hybrid_comparison_single.png
+│   │   │   ├── split
+│   │   │   │   └── split_comparison_single.png
+│   │   │   ├── split_len_12
+│   │   │   │   └── split_len_12_comparison_multi.png
+│   │   │   ├── split_len_3
+│   │   │   │   └── split_len_3_comparison_multi.png
+│   │   │   ├── split_len_6
+│   │   │   │   └── split_len_6_comparison_multi.png
+│   │   │   ├── split_len_9
+│   │   │   │   └── split_len_9_comparison_multi.png
+│   │   │   └── unbalanced
+│   │   │       ├── unbalanced_comparison_multi.png
+│   │   │       └── unbalanced_comparison_single.png
+│   │   ├── rmse
+│   │   │   ├── balanced
+│   │   │   │   ├── balanced_comparison_multi.png
+│   │   │   │   └── balanced_comparison_single.png
+│   │   │   ├── hybrid
+│   │   │   │   ├── hybrid_comparison_multi.png
+│   │   │   │   └── hybrid_comparison_single.png
+│   │   │   ├── split
+│   │   │   │   └── split_comparison_single.png
+│   │   │   ├── split_len_12
+│   │   │   │   └── split_len_12_comparison_multi.png
+│   │   │   ├── split_len_3
+│   │   │   │   └── split_len_3_comparison_multi.png
+│   │   │   ├── split_len_6
+│   │   │   │   └── split_len_6_comparison_multi.png
+│   │   │   ├── split_len_9
+│   │   │   │   └── split_len_9_comparison_multi.png
+│   │   │   └── unbalanced
+│   │   │       ├── unbalanced_comparison_multi.png
+│   │   │       └── unbalanced_comparison_single.png
+│   │   └── tree.txt
+│   ├── plots.tar.gz
+│   └── results.tar.gz
 ├── README.md
 └── tree.txt
 
-32 directories, 55 files
+145 directories, 295 files

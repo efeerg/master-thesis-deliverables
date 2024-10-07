@@ -1,0 +1,220 @@
+.
+├── accuracy
+│   ├── balanced
+│   │   ├── balanced_comparison.png
+│   │   ├── balanced_comparison_multi.png
+│   │   └── balanced_comparison_single.png
+│   ├── hybrid
+│   │   ├── hybrid_comparison.png
+│   │   ├── hybrid_comparison_multi.png
+│   │   └── hybrid_comparison_single.png
+│   ├── split
+│   │   ├── split_comparison.png
+│   │   └── split_comparison_single.png
+│   ├── split_len_12
+│   │   ├── split_len_12_comparison.png
+│   │   └── split_len_12_comparison_multi.png
+│   ├── split_len_3
+│   │   ├── split_len_3_comparison.png
+│   │   └── split_len_3_comparison_multi.png
+│   ├── split_len_6
+│   │   ├── split_len_6_comparison.png
+│   │   └── split_len_6_comparison_multi.png
+│   ├── split_len_9
+│   │   ├── split_len_9_comparison.png
+│   │   └── split_len_9_comparison_multi.png
+│   └── unbalanced
+│       ├── unbalanced_comparison.png
+│       ├── unbalanced_comparison_multi.png
+│       └── unbalanced_comparison_single.png
+├── confusion_matrix
+│   ├── balanced_10
+│   │   └── balanced_10_heatmaps.png
+│   ├── balanced_100
+│   │   └── balanced_100_heatmaps.png
+│   ├── balanced_150
+│   │   └── balanced_150_heatmaps.png
+│   ├── balanced_50
+│   │   └── balanced_50_heatmaps.png
+│   ├── hybrid_1
+│   │   └── hybrid_1_heatmaps.png
+│   ├── hybrid_4
+│   │   └── hybrid_4_heatmaps.png
+│   ├── hybrid_9
+│   │   └── hybrid_9_heatmaps.png
+│   ├── split_12_12
+│   │   └── split_12_12_heatmaps.png
+│   ├── split_18_6
+│   │   └── split_18_6_heatmaps.png
+│   ├── split_6_6
+│   │   └── split_6_6_heatmaps.png
+│   ├── split_6_9
+│   │   └── split_6_9_heatmaps.png
+│   ├── split_9_3
+│   │   └── split_9_3_heatmaps.png
+│   ├── split_9_6
+│   │   └── split_9_6_heatmaps.png
+│   ├── unbalanced_10
+│   │   └── unbalanced_10_heatmaps.png
+│   ├── unbalanced_100
+│   │   └── unbalanced_100_heatmaps.png
+│   ├── unbalanced_25
+│   │   └── unbalanced_25_heatmaps.png
+│   ├── unbalanced_5
+│   │   └── unbalanced_5_heatmaps.png
+│   ├── unbalanced_50
+│   │   └── unbalanced_50_heatmaps.png
+│   └── without
+│       └── without_heatmaps.png
+├── distribution
+│   ├── balanced
+│   │   └── balanced.png
+│   ├── hybrid
+│   │   └── hybrid.png
+│   ├── split_len_11
+│   │   └── split_len_11.png
+│   └── unbalanced
+│       └── unbalanced.png
+├── f1
+│   ├── balanced
+│   │   ├── balanced_comparison_multi.png
+│   │   └── balanced_comparison_single.png
+│   ├── hybrid
+│   │   ├── hybrid_comparison_multi.png
+│   │   └── hybrid_comparison_single.png
+│   ├── split
+│   │   └── split_comparison_single.png
+│   ├── split_len_12
+│   │   └── split_len_12_comparison_multi.png
+│   ├── split_len_3
+│   │   └── split_len_3_comparison_multi.png
+│   ├── split_len_6
+│   │   └── split_len_6_comparison_multi.png
+│   ├── split_len_9
+│   │   └── split_len_9_comparison_multi.png
+│   └── unbalanced
+│       ├── unbalanced_comparison_multi.png
+│       └── unbalanced_comparison_single.png
+├── mae
+│   ├── balanced
+│   │   ├── balanced_comparison_multi.png
+│   │   └── balanced_comparison_single.png
+│   ├── hybrid
+│   │   ├── hybrid_comparison_multi.png
+│   │   └── hybrid_comparison_single.png
+│   ├── split
+│   │   └── split_comparison_single.png
+│   ├── split_len_12
+│   │   └── split_len_12_comparison_multi.png
+│   ├── split_len_3
+│   │   └── split_len_3_comparison_multi.png
+│   ├── split_len_6
+│   │   └── split_len_6_comparison_multi.png
+│   ├── split_len_9
+│   │   └── split_len_9_comparison_multi.png
+│   └── unbalanced
+│       ├── unbalanced_comparison_multi.png
+│       └── unbalanced_comparison_single.png
+├── mse
+│   ├── balanced
+│   │   ├── balanced_comparison_multi.png
+│   │   └── balanced_comparison_single.png
+│   ├── hybrid
+│   │   ├── hybrid_comparison_multi.png
+│   │   └── hybrid_comparison_single.png
+│   ├── split
+│   │   └── split_comparison_single.png
+│   ├── split_len_12
+│   │   └── split_len_12_comparison_multi.png
+│   ├── split_len_3
+│   │   └── split_len_3_comparison_multi.png
+│   ├── split_len_6
+│   │   └── split_len_6_comparison_multi.png
+│   ├── split_len_9
+│   │   └── split_len_9_comparison_multi.png
+│   └── unbalanced
+│       ├── unbalanced_comparison_multi.png
+│       └── unbalanced_comparison_single.png
+├── precision
+│   ├── balanced
+│   │   ├── balanced_comparison_multi.png
+│   │   └── balanced_comparison_single.png
+│   ├── hybrid
+│   │   ├── hybrid_comparison_multi.png
+│   │   └── hybrid_comparison_single.png
+│   ├── split
+│   │   └── split_comparison_single.png
+│   ├── split_len_12
+│   │   └── split_len_12_comparison_multi.png
+│   ├── split_len_3
+│   │   └── split_len_3_comparison_multi.png
+│   ├── split_len_6
+│   │   └── split_len_6_comparison_multi.png
+│   ├── split_len_9
+│   │   └── split_len_9_comparison_multi.png
+│   └── unbalanced
+│       ├── unbalanced_comparison_multi.png
+│       └── unbalanced_comparison_single.png
+├── r2
+│   ├── balanced
+│   │   ├── balanced_comparison_multi.png
+│   │   └── balanced_comparison_single.png
+│   ├── hybrid
+│   │   ├── hybrid_comparison_multi.png
+│   │   └── hybrid_comparison_single.png
+│   ├── split
+│   │   └── split_comparison_single.png
+│   ├── split_len_12
+│   │   └── split_len_12_comparison_multi.png
+│   ├── split_len_3
+│   │   └── split_len_3_comparison_multi.png
+│   ├── split_len_6
+│   │   └── split_len_6_comparison_multi.png
+│   ├── split_len_9
+│   │   └── split_len_9_comparison_multi.png
+│   └── unbalanced
+│       ├── unbalanced_comparison_multi.png
+│       └── unbalanced_comparison_single.png
+├── recall
+│   ├── balanced
+│   │   ├── balanced_comparison_multi.png
+│   │   └── balanced_comparison_single.png
+│   ├── hybrid
+│   │   ├── hybrid_comparison_multi.png
+│   │   └── hybrid_comparison_single.png
+│   ├── split
+│   │   └── split_comparison_single.png
+│   ├── split_len_12
+│   │   └── split_len_12_comparison_multi.png
+│   ├── split_len_3
+│   │   └── split_len_3_comparison_multi.png
+│   ├── split_len_6
+│   │   └── split_len_6_comparison_multi.png
+│   ├── split_len_9
+│   │   └── split_len_9_comparison_multi.png
+│   └── unbalanced
+│       ├── unbalanced_comparison_multi.png
+│       └── unbalanced_comparison_single.png
+├── rmse
+│   ├── balanced
+│   │   ├── balanced_comparison_multi.png
+│   │   └── balanced_comparison_single.png
+│   ├── hybrid
+│   │   ├── hybrid_comparison_multi.png
+│   │   └── hybrid_comparison_single.png
+│   ├── split
+│   │   └── split_comparison_single.png
+│   ├── split_len_12
+│   │   └── split_len_12_comparison_multi.png
+│   ├── split_len_3
+│   │   └── split_len_3_comparison_multi.png
+│   ├── split_len_6
+│   │   └── split_len_6_comparison_multi.png
+│   ├── split_len_9
+│   │   └── split_len_9_comparison_multi.png
+│   └── unbalanced
+│       ├── unbalanced_comparison_multi.png
+│       └── unbalanced_comparison_single.png
+└── tree.txt
+
+98 directories, 120 files

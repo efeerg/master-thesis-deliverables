@@ -26,6 +26,8 @@ class DataLoader:
             if filename.endswith(".parquet"):
                 if filename == "maintenance_score_experiment.parquet":
                     print("\nFound target variable file: maintenance_score_experiment.parquet")
+                # elif filename != "commit_per_month.parquet" and filename != "issues.parquet" and filename != "project_information.parquet":
+                #     print("\nSkipping the file because it is used to calculate the maintenance score.")
                 else:
                     # Load feature data
                     df = pd.read_parquet(file_path)

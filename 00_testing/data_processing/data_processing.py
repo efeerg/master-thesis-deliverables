@@ -424,8 +424,7 @@ def data_processing(df, begin_time, end_time):
 
     maintained_score = commit_activity_score + issue_activity_score
     t = 4 * 90 / 30
-    maintained_score = maintained_score.map(lambda x: min(math.floor(10 * x  / t), 10)) 
-    # maintained_score = maintained_score.map(lambda x: min(x, 10)) 
+    maintained_score = maintained_score.map(lambda x: min(math.floor(10 * x  / t), 10))
     maintained_score = maintained_score.where(pi_activity_score, 0.0)
     maintained_score = maintained_score.astype(int)
     maintained_score.to_parquet('../01_input/input/metrics/maintenance_score_experiment.parquet')
