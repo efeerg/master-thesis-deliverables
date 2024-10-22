@@ -12,7 +12,7 @@
     "test_pipeline": {
         "input_folder": "../01_input/input/metrics/",
         "output_folder": "../06_results/json/with/",
-        "forecasting_type": "single-step-ahead",
+        "forecasting_type": "multi-step-ahead-iterative",
         "n": 9,
         "sequence_length": 3,
         "model": "RandomForest",
