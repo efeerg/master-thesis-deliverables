@@ -39,6 +39,7 @@ def main(config_path):
     loader = DataLoader(
         input_folder=config['input_folder'],
         sequence_length=config['sequence_length'],
+        included_metrics=config['included_metrics'],
         n=config.get('n', 9)
     )
     

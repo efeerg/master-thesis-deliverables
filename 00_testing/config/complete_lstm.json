@@ -7,7 +7,7 @@
     "ds_pipeline": {
         "parquet_file": "../01_input/input/procesed_relational_dataset_with_maintained_score.parquet",
         "sample_type": "balanced",
-        "sample_size": 100
+        "sample_size": 10
     },
     "test_pipeline": {
         "input_folder": "../01_input/input/metrics/",
@@ -15,6 +15,7 @@
         "forecasting_type": "multi-step-ahead-iterative",
         "n": 9,
         "sequence_length": 3,
+        "included_metrics": ["commit_per_month", "issues", "project_information"],
         "model": "LSTM",
         "epochs": 100,
         "batch_size": 32,
@@ -31,6 +32,6 @@
         "month": 12
     },
     "execute_maintained": false,
-    "execute_ds" : false,
+    "execute_ds" : true,
     "execute_test": true
 }

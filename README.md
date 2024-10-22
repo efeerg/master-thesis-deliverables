@@ -1,4 +1,4 @@
-# Master Thesis: GitHub Library Maintenance Prediction
+# Master Thesis: Predicting the Maintenance Score of GitHub Repositories derived from the OpenSSF Scorecard
 
 This repository contains the code deliverables for the Master Thesis entitled **"GitHub Library Maintenance Prediction: A Comparison of Machine Learning and Deep Learning Methods"**. The folders are structured matching with the chapters in the thesis, each folder corresponding to the respective chapters and components of the study. All scripts and data required to reproduce the results and experiments described in the thesis are provided.
 
@@ -16,10 +16,15 @@ This repository contains the code deliverables for the Master Thesis entitled **
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-repository-link.git
+   git clone https://github.com/efeerg/master-thesis-deliverables.git
    ```
 
-2. **Install dependencies**:
+2. **Clone conda environment**:
+   ```bash
+   conda create --name master_thesis
+   ```
+
+3. **Install dependencies**:
    The required Python packages can be installed using the following command:
    ```bash
    pip install -r requirements.txt

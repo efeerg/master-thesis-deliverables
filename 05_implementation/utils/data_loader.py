@@ -3,9 +3,10 @@ import pandas as pd
 import os
 
 class DataLoader:
-    def __init__(self, input_folder, sequence_length, n):
+    def __init__(self, input_folder, sequence_length, included_metrics, n):
         self.input_folder = input_folder
         self.sequence_length = sequence_length
+        self.included_metrics = included_metrics
         self.n = n
 
     def load_data(self):
@@ -26,15 +27,15 @@ class DataLoader:
             if filename.endswith(".parquet"):
                 if filename == "maintenance_score_experiment.parquet":
                     print("\nFound target variable file: maintenance_score_experiment.parquet")
-                # elif filename != "commit_per_month.parquet" and filename != "issues.parquet" and filename != "project_information.parquet":
-                #     print("\nSkipping the file because it is used to calculate the maintenance score.")
-                else:
+                elif filename.replace(".parquet", "") in self.included_metrics:
                     # Load feature data
                     df = pd.read_parquet(file_path)
                     df.replace([np.inf, -np.inf], np.nan, inplace=True)  # Replace infinities with NaNs
                     df.fillna(0, inplace=True)  # Replace NaNs with 0 or any other strategy you prefer
                     data_list.append(df.values)
                     print(f"Loaded {filename}: Shape {df.shape}")
+                else:
+                    print(f"\nSkipping {filename} as it's not in the included metrics.")
 
         print("\nFinished loading feature data.")
         print("="*50)

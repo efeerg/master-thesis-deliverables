@@ -109,6 +109,9 @@ def calculate_three_month_score(df):
 def check_all_true(df):
     return df.apply(lambda row: row[df.columns[0]] and row[df.columns[1]] and row[df.columns[2]], axis=1)
 
+# EXISTING METRICS CAN BE EXCLUDED BY COMMENTING OUT THEM. HOWEVER, IT IS IMPORTANT THAT WE MUST KEEP
+# THE DATAFRAMES commit_per_month, project_information, AND issues, BECAUSE THEY ARE USED TO CALCULATE
+# THE TARGET VARIABLE maintenance_score.
 def data_processing(df, begin_time, end_time):
     # Define the start and end dates (we are getting three months before of the starting date, because each month should consider the activities based on the last 90 days)
     start_year, start_month = begin_time[1], begin_time[0]
@@ -429,4 +432,4 @@ def data_processing(df, begin_time, end_time):
     maintained_score = maintained_score.astype(int)
     maintained_score.to_parquet('../01_input/input/metrics/maintenance_score_experiment.parquet')
 
-
+    ### NEW METRICS CAN BE ADDED BELOW

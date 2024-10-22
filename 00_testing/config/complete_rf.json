@@ -15,6 +15,7 @@
         "forecasting_type": "multi-step-ahead-iterative",
         "n": 9,
         "sequence_length": 3,
+        "included_metrics": ["commit_per_month", "issues", "project_information"],
         "model": "RandomForest",
         "n_estimators": 100,
         "max_depth": 10,
